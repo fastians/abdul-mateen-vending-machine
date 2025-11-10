@@ -1,0 +1,105 @@
+Step 1. Understand the full journey
+Step 2. Identify the core components
+Step 3. List all possible cases
+Step 4. Plan the diagram
+Step 5. Plan the React structure
+Step 6. Plan the TypeScript data models
+
+User flow
+	1.	User approaches machine
+	2.	User selects a drink
+	3.	Machine checks price
+	4.	User chooses payment method
+	5.	Machine verifies payment
+	6.	Machine dispenses drink
+	7.	Machine returns change if needed
+	8.	Machine handles errors
+        •	Not enough balance
+        •	Out of stock
+        •	Payment failure
+        •	Cancel flow
+
+
+Key components
+	•	Drink list
+	•	Inventory
+	•	Payment system
+	•	Order processor
+	•	State manager
+
+Examples
+	•	Drinks: holds name, price, stock
+	•	Payment: checks cash input or card result
+	•	Order: decides if machine can sell
+	•	State: tracks what screen the user sees
+
+
+Cover these
+	•	User selects drink with enough money
+	•	User selects drink with not enough money
+	•	Wrong cash amount
+	•	Card payment fails
+	•	Drink is out of stock
+	•	Cancel action halfway
+	•	Machine must return correct change
+
+Scenarios to Consider
+	•	User selects drink with enough money
+	•	User selects drink with not enough money
+	•	Wrong cash amount
+	•	Card payment fails
+	•	Drink is out of stock
+	•	Cancel action halfway
+	•	Machine must return correct change
+
+Possible components
+	•	DrinkList
+	•	DrinkItem
+	•	PaymentSelector
+	•	CashInput
+	•	CardPayment
+	•	OrderSummary
+	•	MachineStateProvider
+
+Core Components:
+├── PaymentProcessor
+│   ├── CashHandler (tracks inserted denominations)
+│   └── CardHandler (validates and processes card)
+├── InventoryService (tracks stock levels)
+├── ChangeCalculator (determines optimal change)
+├── TransactionController (orchestrates the flow)
+└── VendingMachineState (centralized state management)
+
+UI Components:
+├── PaymentPanel (cash slots, card reader UI)
+├── ProductDisplay (available drinks with prices)
+├── BalanceDisplay (current credit/inserted amount)
+├── MessageDisplay (errors, confirmations)
+└── ChangeReturn (visual representation of change)
+
+
+Possible interfaces
+	•	Drink { id, name, price, stock }
+	•	PaymentResult { success, message, change }
+	•	MachineState { selectedDrink, balance, status }
+
+
+Screen Sketch
+Idle / Browse
+Hero headline (“Choose your drink”).
+Product cards with price and stock.
+“Need help?” offer to call attendant (optional).
+Selection Confirmation (Drawer/Modal step 1)
+Selected drink, price, nutrition note (optional).
+Buttons: Pay with Cash, Pay with Card, Cancel.
+No payment controls yet—just method choice.
+Payment Step (Step 2 panel)
+Sub-header “Step 2 of 3: Pay for Water”.
+If cash: denominations grid + dynamic balance bar + refund info.
+If card: large “Hold card near reader” button → triggers card authorize when tapped, not just on method change.
+Back button returns to method choice.
+Dispense / Change (Step 3)
+Animated progress indicator (“Dispensing…”, “Returning ₩500 change”).
+When done, big thank-you message with “Start new order” button.
+Persistent Status Tile
+Small tile on home screen showing machine state only when active (“In use – Dispensing Water”). Helps the next customer know it’s busy or ready.
